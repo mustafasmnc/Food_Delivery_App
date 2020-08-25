@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/src/pages/signin_page.dart';
 import 'package:food_app/src/widgets/order_card.dart';
 
 class OrderPage extends StatefulWidget {
@@ -27,7 +28,7 @@ class _OrderPageState extends State<OrderPage> {
           OrderCard(),
           OrderCard(),
           OrderCard(),
-           _buildTotalContainer()
+          _buildTotalContainer()
         ],
       ),
       //bottomNavigationBar: _buildTotalContainer(),
@@ -53,7 +54,7 @@ class _OrderPageState extends State<OrderPage> {
                 ),
               ),
               Text(
-                "23.00",
+                "23.00 \u20BA",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -75,7 +76,7 @@ class _OrderPageState extends State<OrderPage> {
                 ),
               ),
               Text(
-                "3",
+                "3.00 \u20BA",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -97,7 +98,7 @@ class _OrderPageState extends State<OrderPage> {
                 ),
               ),
               Text(
-                "4.00",
+                "4.00 \u20BA",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -123,7 +124,7 @@ class _OrderPageState extends State<OrderPage> {
                 ),
               ),
               Text(
-                "30.00",
+                "30.00 \u20BA",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -133,19 +134,24 @@ class _OrderPageState extends State<OrderPage> {
             ],
           ),
           SizedBox(height: 20),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 40,
-            decoration: BoxDecoration(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(30)),
-            child: Center(
-              child: Text(
-                "Proceed to Checkout",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold),
+          GestureDetector(
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=> SignInPage()));
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              decoration: BoxDecoration(
+                  color: Colors.blueAccent,
+                  borderRadius: BorderRadius.circular(30)),
+              child: Center(
+                child: Text(
+                  "Proceed to Checkout",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           )
