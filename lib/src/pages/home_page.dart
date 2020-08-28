@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/src/scoped-model/food_model.dart';
 import 'package:food_app/src/widgets/bought_food.dart';
 import 'package:food_app/src/widgets/food_card.dart';
 import 'package:food_app/src/widgets/food_category.dart';
@@ -9,13 +10,22 @@ import '../data/food_data.dart';
 import '../models/food_model.dart';
 
 class HomePage extends StatefulWidget {
+  final FoodModel foodModel=new FoodModel();
+
+  //HomePage({this.foodModel});
+
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Food> _foods = foods;
+  //List<Food> _foods = foods;
+  @override
+  void initState() {
+    widget.foodModel.fetchFoods();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +62,7 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(height: 10),
           Column(
-            children: _foods.map(_buildFoodItems).toList(),
+            children: widget.foodModel.foods.map(_buildFoodItems).toList(),
           )
         ],
       ),

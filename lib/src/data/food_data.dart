@@ -12,7 +12,7 @@ final foods = [
     discount: 30,
     ratings: 99,
   ),
-  Food(
+  /*Food(
     id: "2",
     name: "Grilled Chicken",
     imagePath: "assets/images/lunch.jpeg",
@@ -20,5 +20,5 @@ final foods = [
     price: 35,
     discount: 40,
     ratings: 80,
-  ),
+  ),*/
 ];
