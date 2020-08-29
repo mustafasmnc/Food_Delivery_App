@@ -33,10 +33,10 @@ class _MainScreenState extends State<MainScreen> {
     widget.model.fetchFoods();
     
     homePage = HomePage();
-    orderPage = OrderPage();
     favoritePage = FavoritePage();
+    orderPage = OrderPage();
     profilePage = ProfilePage();
-    pages = [homePage, orderPage, favoritePage, profilePage];
+    pages = [homePage, favoritePage, orderPage, profilePage];
 
     currentPage = homePage;
     super.initState();
@@ -57,9 +57,9 @@ class _MainScreenState extends State<MainScreen> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), title: Text("Orders")),
+              icon: Icon(Icons.explore), title: Text("Explore")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), title: Text("Favorite")),
+              icon: Icon(Icons.shopping_cart), title: Text("Orders")),
           BottomNavigationBarItem(
               icon: Icon(Icons.person), title: Text("Profile"))
         ],
