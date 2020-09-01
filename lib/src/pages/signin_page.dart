@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/src/pages/signup_page.dart';
+import 'package:food_app/src/widgets/button.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -93,21 +94,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
             SizedBox(height: 20),
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                  color: Colors.blueAccent,
-                  borderRadius: BorderRadius.circular(25)),
-              child: Center(
-                child: Text(
-                  "Sign In",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
+            Button(btnText: "Sign In",),
             Divider(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
