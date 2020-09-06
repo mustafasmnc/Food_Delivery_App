@@ -11,30 +11,56 @@ class FoodModel extends Model {
     return List.from(_foods);
   }
 
-  void addFood(Food food) {
-    _foods.add(food);
+  void addFood(Food food) async {
+    //_foods.add(food);
+    final Map<String, dynamic> foodData = {
+      "title": food.name,
+      "description": food.description,
+      "category": food.category,
+      "price": food.price,
+      "discount": food.discount
+    };
+    final http.Response response = await http.post(
+        "https://fooddelivery-a03a8.firebaseio.com/foods.json",
+        body: json.encode(foodData));
+
+    final Map<String, dynamic> responseData = json.decode(response.body);
+    //print(responseData["name"]);
+
+    Food foodWithID = Food(
+      id: responseData["name"],
+      name: food.name,
+      description: food.description,
+      category: food.category,
+      discount: food.discount,
+      price: food.price,
+    );
+
+    _foods.add(foodWithID);
+    print(_foods[0].name);
   }
 
   void fetchFoods() {
     http
-        .get("http://192.168.1.107/flutter_food_app/api/foods/getFoods.php")
+        .get("https://fooddelivery-a03a8.firebaseio.com/foods.json")
         .then((http.Response response) {
-      //print("Fetching data: ${response.body}");
-      final List fetchedData = json.decode(response.body);
-      final List<Food> fetchedFoodItems = [];
-      //print(fetchedData);
-      fetchedData.forEach((data) {
-        Food food = Food(
-          id: data["id"],
-          name: data["title"],
-          price: double.parse(data["price"]),
-          discount: double.parse(data["discount"]),
-          category: data["category_id"],
-          imagePath: data["image_path"],
+      final Map<String, dynamic> fetchedData = json.decode(response.body);
+      print(fetchedData);
+
+      final List<Food> foodItems = [];
+
+      fetchedData.forEach((String id, dynamic foodData) {
+        Food foodItem = Food(
+          id: id,
+          name: foodData["title"],
+          description: foodData["description"],
+          category: foodData["category"],
+          price: foodData["price"],
+          discount: foodData["discount"],
         );
-        fetchedFoodItems.add(food);
+        foodItems.add(foodItem);
       });
-      _foods = fetchedFoodItems;
+      _foods = foodItems;
     });
   }
 }

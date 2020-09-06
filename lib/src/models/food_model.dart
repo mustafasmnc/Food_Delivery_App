@@ -3,12 +3,14 @@ class Food {
   final String name;
   final String imagePath;
   final String category;
+  final String description;
   final double price;
   final double discount;
   final double ratings;
 
   Food(
-      {this.id,
+      {this.description,
+      this.id,
       this.name,
       this.imagePath,
       this.category,
