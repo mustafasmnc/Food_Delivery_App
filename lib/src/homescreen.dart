@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/src/widgets/bought_food.dart';
-import 'package:food_app/src/widgets/food_card.dart';
 import 'package:food_app/src/widgets/food_category.dart';
 import 'package:food_app/src/widgets/home_dart_info.dart';
 import 'package:food_app/src/widgets/search_field.dart';

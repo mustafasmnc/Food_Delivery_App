@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/src/scoped-model/food_model.dart';
 import 'package:food_app/src/scoped-model/main_model.dart';
 import 'package:food_app/src/widgets/bought_food.dart';
-import 'package:food_app/src/widgets/food_card.dart';
 import 'package:food_app/src/widgets/food_category.dart';
 import 'package:food_app/src/widgets/home_dart_info.dart';
 import 'package:food_app/src/widgets/search_field.dart';
 import 'package:scoped_model/scoped_model.dart';
 //data
-import '../data/food_data.dart';
 import '../models/food_model.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,8 +28,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: ListView(
-        padding: EdgeInsets.only(top: 30, left: 10, right: 10),
+        padding: EdgeInsets.only(left: 10, right: 10),
         children: [
           HomeTopInfo(),
           FoodCategory(),
