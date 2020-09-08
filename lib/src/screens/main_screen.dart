@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/src/admin/pages/add_food_item.dart';
-import 'package:food_app/src/pages/favorite_page.dart';
+import 'package:food_app/src/pages/explore_page.dart';
 import 'package:food_app/src/pages/home_page.dart';
 import 'package:food_app/src/pages/order_page.dart';
 import 'package:food_app/src/pages/profile_page.dart';
@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
     //widget.model.fetchFoods();
 
     homePage = HomePage();
-    favoritePage = FavoritePage();
+    favoritePage = FavoritePage(model: widget.model);
     orderPage = OrderPage();
     profilePage = ProfilePage();
     pages = [homePage, favoritePage, orderPage, profilePage];
@@ -51,6 +51,18 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.white,
           elevation: 0,
           iconTheme: IconThemeData(color: Colors.black),
+          title: Text(
+              currentTabIndex == 0
+                  ? "Food Delivery App"
+                  : currentTabIndex == 1
+                      ? "All Food Items"
+                      : currentTabIndex == 2 ? "Orders" : "Profile",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              )),
+          centerTitle: true,
         ),
         drawer: Drawer(
           child: Column(
