@@ -5,29 +5,44 @@ import 'package:food_app/src/widgets/food_card_item.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class FavoritePage extends StatefulWidget {
+  
+  final MainModel model;
+  const FavoritePage({this.model});
+  //firebase ile otomatik güncelleme için
+
   @override
   _FavoritePageState createState() => _FavoritePageState();
 }
 
 class _FavoritePageState extends State<FavoritePage> {
   @override
+  void initState() {
+    super.initState();
+    widget.model.fetchFoods();
+  }
+  //firebase ile otomatik güncelleme için
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
         body: ScopedModelDescendant<MainModel>(
           builder: (BuildContext context, Widget child, MainModel model) {
-            model.fetchFoods();
+            //model.fetchFoods(); //this will fetch and notifylistener() | firebase ile otomatik güncelleme için
             List<Food> foods = model.foods;
             return Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: ListView(
-                children: foods.map((Food food) {
-                  return FoodItemCard(
-                    food.name,
-                    food.description,
-                    food.price.toString(),
-                  );
-                }).toList(),
+              child: RefreshIndicator(
+                onRefresh: model.fetchFoods,
+                child: ListView(
+                  children: foods.map((Food food) {
+                    return FoodItemCard(
+                      food.name,
+                      food.description,
+                      food.price.toString(),
+                    );
+                  }).toList(),
+                ),
               ),
             );
           },

@@ -31,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     //call the fetch method on food
-    widget.model.fetchFoods();
+    //widget.model.fetchFoods();
 
     homePage = HomePage();
     favoritePage = FavoritePage();
