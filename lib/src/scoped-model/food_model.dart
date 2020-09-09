@@ -129,6 +129,26 @@ class FoodModel extends Model {
     }
   }
 
+  Future<bool> deleteFood(String foodId) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      final http.Response response = await http.delete(
+          "https://fooddelivery-a03a8.firebaseio.com/foods/${foodId}.json");
+
+      //delete food from of food list
+      _foods.removeWhere((Food food) => food.id==foodId);
+
+      _isLoading = false;
+      notifyListeners();
+      return Future.value(true);
+    } catch (error) {
+      _isLoading = false;
+      notifyListeners();
+      return Future.value(false);
+    }
+  }
+
   Food getFoodItemById(String foodId) {
     Food food;
     for (int i = 0; i < _foods.length; i++) {

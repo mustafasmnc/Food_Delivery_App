@@ -53,9 +53,9 @@ class _MainScreenState extends State<MainScreen> {
           iconTheme: IconThemeData(color: Colors.black),
           title: Text(
               currentTabIndex == 0
-                  ? "Food Delivery App"
+                  ? "Food App"
                   : currentTabIndex == 1
-                      ? "All Food Items"
+                      ? "All Foods"
                       : currentTabIndex == 2 ? "Orders" : "Profile",
               style: TextStyle(
                 color: Colors.black,
@@ -63,6 +63,18 @@ class _MainScreenState extends State<MainScreen> {
                 fontWeight: FontWeight.bold,
               )),
           centerTitle: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.notifications_none,
+                  size: 30,
+                  color: Theme.of(context).primaryColor),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: _buildShoppingCart(),
+              onPressed: () {},
+            )
+          ],
         ),
         drawer: Drawer(
           child: Column(
@@ -104,6 +116,38 @@ class _MainScreenState extends State<MainScreen> {
         ),
         body: currentPage,
       ),
+    );
+  }
+
+  Widget _buildShoppingCart() {
+    return Stack(
+      children: [
+        Icon(Icons.shopping_cart,
+            size: 30,
+            color: Theme.of(context).primaryColor),
+        Positioned(
+          top: 0,
+          right: 0,
+          child: Container(
+            height: 15,
+            width: 15,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              color: Colors.red,
+            ),
+            child: Center(
+              child: Text(
+                "44",
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/src/scoped-model/main_model.dart';
 import 'package:food_app/src/widgets/bought_food.dart';
 import 'package:food_app/src/widgets/food_category.dart';
-import 'package:food_app/src/widgets/home_dart_info.dart';
+import 'package:food_app/src/widgets/home_top_info.dart';
 import 'package:food_app/src/widgets/search_field.dart';
 import 'package:scoped_model/scoped_model.dart';
 //data
@@ -79,7 +79,7 @@ Widget _buildFoodItems(Food food) {
     child: BoughtFood(
       id: food.id,
       name: food.name,
-      imagePath: food.imagePath,
+      imagePath: "assets/images/lunch.jpeg",
       category: food.category,
       discount: food.discount,
       price: food.price,

@@ -20,11 +20,11 @@ class HomeTopInfo extends StatelessWidget {
               Text("you like to eat", style: textStyle),
             ],
           ),
-          Icon(
+          /*Icon(
             Icons.notifications_none,
             size: 30,
             color: Theme.of(context).primaryColor,
-          ),
+          ),*/
         ],
       ),
     );
