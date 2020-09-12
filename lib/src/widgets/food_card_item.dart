@@ -50,7 +50,7 @@ class FoodItemCard extends StatelessWidget {
                       SizedBox(height: 10),
                       Container(
                         width: 260,
-                        child: Text("$description"),
+                        child: Text("$description",maxLines: 2,),
                       ),
                       SizedBox(height: 10),
                       Container(
