@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/src/admin/pages/add_food_item.dart';
 import 'package:food_app/src/models/food_model.dart';
@@ -16,6 +17,7 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
+  bool isDeleteFood = false;
   //the scaffold global key
   GlobalKey<ScaffoldState> _explorePageScaffoldKey = GlobalKey();
 
@@ -68,9 +70,26 @@ class _FavoritePageState extends State<FavoritePage> {
                       onDoubleTap: () {
                         //delete food
                         showLoadingIndicator(context, "Deleting Food");
-                        model.deleteFood(model.foods[index].id).then((bool response) {
+                        model
+                            .deleteFood(model.foods[index].id)
+                            .then((bool response) {
                           Navigator.of(context).pop();
                         });
+
+                        /*_showDialog(context);
+                        if (isDeleteFood) {
+                          print(isDeleteFood);
+                          showLoadingIndicator(context, "Deleting Food");
+                          model
+                              .deleteFood(model.foods[index].id)
+                              .then((bool response) {
+                            Navigator.of(context).pop();
+                          });
+
+                        setState(() {
+                          isDeleteFood = false;
+                        });
+                        }*/
                       },
                       child: FoodItemCard(
                         model.foods[index].name,
@@ -85,6 +104,39 @@ class _FavoritePageState extends State<FavoritePage> {
           },
         ));
   }
+
+// user defined function
+/*  void _showDialog(context) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          //title:  Text("Alert Dialog title"),
+          content: Text("Are You Sure"),
+          actions: [
+            FlatButton(
+              child: Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text("Yes"),
+              onPressed: () {
+                setState(() {
+                  isDeleteFood = true;
+                });
+
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }*/
 }
 
 /*Container(  
