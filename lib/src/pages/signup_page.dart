@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/src/enums/auth_mode.dart';
 import 'package:food_app/src/pages/signin_page.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:food_app/src/scoped-model/main_model.dart';
@@ -19,6 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
   String _password;
   //String _confirmPassword;
 
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   GlobalKey<FormState> _formKey = GlobalKey();
 
   Widget _buildEmailTextField() {
@@ -155,6 +157,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        key: _scaffoldKey,
         resizeToAvoidBottomPadding: false,
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -252,13 +255,24 @@ class _SignUpPageState extends State<SignUpPage> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      print("The mail: $_email, the password: $_password");
-      authenticate(_email, _password).then((final response) {
-        Navigator.of(context).pop();
-        if (response['hasError']) {
-          //Navigate to home page
+      //print("The mail: $_email, the password: $_password");
+      authenticate(_email, _password, authMode: AuthMode.SignUp)
+          .then((final response) {
+        
+        if (!response['hasError']) {
+          print(response['message']);
+          Navigator.of(context).pop();
+          Navigator.of(context).pushReplacementNamed("/mainscreen");
         } else {
-          //display the error message in the snackbar
+          print(response['message']);
+          Navigator.of(context).pop();
+          _scaffoldKey.currentState.showSnackBar(
+            SnackBar(
+              duration: Duration(seconds: 3),
+              backgroundColor: Colors.red,
+              content: Text(response['message']),
+            ),
+          );
         }
       });
     }
