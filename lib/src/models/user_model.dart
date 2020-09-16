@@ -1,4 +1,6 @@
-class User{
+class User {
+  final String id;
+  final String token;
   final String username;
   final String firstname;
   final String lastname;
@@ -6,6 +8,13 @@ class User{
   final String phonenumber;
   final String usertype;
 
-  User({this.username, this.firstname, this.lastname, this.email, this.phonenumber, this.usertype});
-
+  User(
+      {this.id,
+      this.token,
+      this.username,
+      this.firstname,
+      this.lastname,
+      this.email,
+      this.phonenumber,
+      this.usertype});
 }

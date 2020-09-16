@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/src/pages/signin_page.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:food_app/src/scoped-model/main_model.dart';
+import 'package:food_app/src/widgets/show_dialog.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -225,6 +226,7 @@ class _SignUpPageState extends State<SignUpPage> {
         builder: (BuildContext sctx, Widget child, MainModel model) {
       return GestureDetector(
         onTap: () {
+          showLoadingIndicator(context, "Signing Up...");
           onSubmit(model.authendicate);
         },
         child: Container(
@@ -251,7 +253,14 @@ class _SignUpPageState extends State<SignUpPage> {
       _formKey.currentState.save();
 
       print("The mail: $_email, the password: $_password");
-      authenticate(_email, _password);
+      authenticate(_email, _password).then((final response) {
+        Navigator.of(context).pop();
+        if (response['hasError']) {
+          //Navigate to home page
+        } else {
+          //display the error message in the snackbar
+        }
+      });
     }
   }
 }
