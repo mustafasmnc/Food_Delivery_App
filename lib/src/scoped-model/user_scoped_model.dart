@@ -6,8 +6,13 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 
 class UserModel extends Model {
+  List<User> _users = [];
   User _authenticatedUser;
   bool _isLoading = false;
+
+  List<User> get users {
+    return List.from(_users);
+  }
 
   User get authenticatedUser {
     return _authenticatedUser;
@@ -17,7 +22,35 @@ class UserModel extends Model {
     return _isLoading;
   }
 
-  Future<Map<String, dynamic>> authendicate(String email, String password,
+  Future<bool> addUserInfo(Map<String, dynamic> userInfo) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      final http.Response response = await http.post(
+          "https://fooddelivery-a03a8.firebaseio.com/users.json",
+          body: json.encode(userInfo));
+
+      final Map<String, dynamic> responseData = json.decode(response.body);
+
+      User userWithID = User(
+        id: responseData['name'],
+        email: userInfo['email'],
+        username: userInfo['username'],
+      );
+
+      _users.add(userWithID);
+      _isLoading = false;
+      notifyListeners();
+      return Future.value(true);
+    } catch (e) {
+      _isLoading = false;
+      notifyListeners();
+      return Future.value(false);
+    }
+  }
+
+  Future<Map<String, dynamic>> authendicate(
+      String email, String password, String username,
       {AuthMode authMode = AuthMode.SignIn}) async {
     _isLoading = true;
     notifyListeners();
@@ -27,6 +60,12 @@ class UserModel extends Model {
       "password": password,
       "resturnSecureToken": true,
     };
+
+    Map<String, dynamic> userInfo = {
+      "email": email,
+      "username": username,
+    };
+
     String message;
     bool hasError = false;
     try {
@@ -36,6 +75,8 @@ class UserModel extends Model {
             "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB3gJrjojf2MOyBsQtUJMkAPmSsn_imApE",
             body: json.encode(authData),
             headers: {'Content-Type': 'application/json'});
+
+        addUserInfo(userInfo);
       } else if (authMode == AuthMode.SignIn) {
         response = await http.post(
             "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB3gJrjojf2MOyBsQtUJMkAPmSsn_imApE",

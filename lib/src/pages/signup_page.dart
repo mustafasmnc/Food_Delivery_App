@@ -255,10 +255,8 @@ class _SignUpPageState extends State<SignUpPage> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      //print("The mail: $_email, the password: $_password");
-      authenticate(_email, _password, authMode: AuthMode.SignUp)
+      authenticate(_email, _password, _username, authMode: AuthMode.SignUp)
           .then((final response) {
-        
         if (!response['hasError']) {
           print(response['message']);
           Navigator.of(context).pop();
